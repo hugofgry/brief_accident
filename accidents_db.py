@@ -294,7 +294,7 @@ class AccidentsDataBase:
         lieux.larrout = lieux.larrout.replace(np.nan, 0.)
         
         # drop old table
-        self.cur.execute("""DROP TABLE IF EXISTS caracteristiques;""")    
+        self.cur.execute("""DROP TABLE IF EXISTS lieux;""")    
         
         #put clean table to the db
         lieux.to_sql('lieux',
