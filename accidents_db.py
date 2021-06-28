@@ -78,10 +78,12 @@ class AccidentsDataBase:
         lieux = self.get_df('lieux')
         caracteristiques = self.get_df('caracteristiques')
         caracteristiques_lieux = lieux.join(caracteristiques.set_index('Num_Acc'), on = 'Num_Acc')
-        
-        
+        vehicules = self.get_df('vehicules')
+        usagers = self.get_df('usagers')
+        vehicules_usagers = pd.merge(usagers, vehicules, on = ['Num_Acc','num_veh'])
+        final = vehicules_usagers.join(caracteristiques_lieux.set_index('Num_Acc'), on = 'Num_Acc')
         #usagers_vehichiles = usagers.join(vehicules.set_index('Num_Veh'), on = 'Num_Veh')
-        return caracteristiques_lieux
+        return final
 
     def get_df(self, table_name):
         return pd.read_sql_query(f"SELECT * FROM {table_name}",
